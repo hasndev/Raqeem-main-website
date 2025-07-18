@@ -1,6 +1,8 @@
 import React, { useState, useEffect, createContext, useContext, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ArrowUpRight, Menu, X, Code, Bot, Layout, Cloud, GraduationCap, PenTool, BrainCircuit, Users, Send, Phone, MapPin, Mail, Languages, Building, GitBranch, Linkedin, Twitter, Instagram } from 'lucide-react';
+
+// --- i18n (Internationalization) Content ---
 const content = {
   en: {
     lang: 'EN',
@@ -165,15 +167,7 @@ const useLanguage = () => useContext(LanguageContext);
 
 const Icon = ({ name, ...props }) => {
     const icons = {
-        Code: Code,
-        Bot: Bot,
-        Layout: Layout,
-        Cloud: Cloud,
-        GraduationCap: GraduationCap,
-        PenTool: PenTool,
-        BrainCircuit: BrainCircuit,
-        Users: Users,
-        GitBranch: GitBranch,
+        Code, Bot, Layout, Cloud, GraduationCap, PenTool, BrainCircuit, Users, GitBranch,
     };
     const IconComponent = icons[name];
     return IconComponent ? <IconComponent {...props} /> : null;
@@ -192,10 +186,9 @@ const MainContent = () => {
 
     return (
         <div className="bg-[#0a0a0a] text-gray-200 font-sans" dir={texts.dir}>
-            {/* Animated background shapes */}
             <div className="absolute inset-0 overflow-hidden -z-0">
                 <div className="absolute top-[-50%] left-[-20%] w-[800px] h-[800px] bg-gradient-to-tr from-[#6610f2]/20 to-transparent rounded-full animate-pulse-slow"></div>
-                <div className="absolute bottom-[-50%] right-[-20%] w-[800px] h-[800px] bg-gradient-to-bl from-[#ffd60a]/10 to-transparent rounded-full animate-pulse-slow animation-delay-2000"></div>
+                <div className="absolute bottom-[-50%] right-[-20%] w-[800px] h-[800px] bg-gradient-to-bl from-[#ffd60a]/10 to-transparent rounded-full animate-pulse-slow-delayed"></div>
             </div>
             
             <div className="relative z-10">
@@ -215,14 +208,12 @@ const MainContent = () => {
 };
 
 const Header = () => {
-    const { texts, toggleLanguage, language } = useLanguage();
+    const { texts, toggleLanguage } = useLanguage();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 20);
-        };
+        const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
@@ -237,16 +228,13 @@ const Header = () => {
     return (
         <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-[#0a0a0a]/80 backdrop-blur-lg shadow-lg shadow-indigo-500/10' : 'bg-transparent'}`}>
             <div className={`container mx-auto px-4 flex justify-between items-center transition-all duration-300 ${isScrolled ? 'py-3' : 'py-6'}`}>
-                <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    className="text-3xl font-bold tracking-wider text-white">
+                <motion.div whileHover={{ scale: 1.05 }} className="text-3xl font-bold tracking-wider text-white">
                     Raqeem<span className="text-[#ffd60a]">.</span>
                 </motion.div>
                 
-                {/* Desktop Nav */}
                 <nav className="hidden md:flex items-center gap-6">
-                    {navLinks.map((link, i) => (
-                        <a key={i} href={link.href} className="text-gray-300 hover:text-white transition-colors duration-300">{link.text}</a>
+                    {navLinks.map((link) => (
+                        <a key={link.href} href={link.href} className="text-gray-300 hover:text-white transition-colors duration-300">{link.text}</a>
                     ))}
                     <button onClick={toggleLanguage} className="flex items-center gap-2 px-3 py-1.5 border border-gray-600 rounded-full text-sm hover:bg-gray-800 transition-colors">
                         <Languages size={16} />
@@ -254,7 +242,6 @@ const Header = () => {
                     </button>
                 </nav>
 
-                {/* Mobile Nav Toggle */}
                 <div className="md:hidden">
                     <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white">
                         {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -262,7 +249,6 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu */}
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
@@ -272,8 +258,8 @@ const Header = () => {
                         className="md:hidden bg-[#111] absolute top-full left-0 w-full"
                     >
                         <nav className="flex flex-col items-center gap-4 py-6">
-                            {navLinks.map((link, i) => (
-                                <a key={i} href={link.href} onClick={() => setIsMenuOpen(false)} className="text-gray-300 hover:text-white transition-colors duration-300 text-lg">{link.text}</a>
+                            {navLinks.map((link) => (
+                                <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className="text-gray-300 hover:text-white transition-colors duration-300 text-lg">{link.text}</a>
                             ))}
                             <button onClick={() => { toggleLanguage(); setIsMenuOpen(false); }} className="flex items-center gap-2 mt-4 px-4 py-2 border border-gray-600 rounded-full text-base hover:bg-gray-800 transition-colors">
                                 <Languages size={18} />
@@ -293,10 +279,7 @@ const HeroSection = () => {
 
     const containerVariants = {
         hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { staggerChildren: 0.2, delayChildren: 0.3 },
-        },
+        visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } },
     };
 
     const itemVariants = {
@@ -324,24 +307,15 @@ const HeroSection = () => {
                         variants={itemVariants} 
                         className="mt-8 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
                     >
-                        <motion.button 
-                            whileHover={{ scale: 1.05, boxShadow: '0px 0px 15px rgba(102, 16, 242, 0.5)' }} 
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-[#6610f2] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
-                        >
+                        <motion.button whileHover={{ scale: 1.05, boxShadow: '0px 0px 15px rgba(102, 16, 242, 0.5)' }} whileTap={{ scale: 0.95 }} className="bg-[#6610f2] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
                             {texts.hero.ctaProject} <ArrowUpRight />
                         </motion.button>
-                        <motion.button 
-                            whileHover={{ scale: 1.05, boxShadow: '0px 0px 15px rgba(255, 214, 10, 0.5)' }} 
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-transparent border-2 border-[#ffd60a] text-[#ffd60a] font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
-                        >
+                        <motion.button whileHover={{ scale: 1.05, boxShadow: '0px 0px 15px rgba(255, 214, 10, 0.5)' }} whileTap={{ scale: 0.95 }} className="bg-transparent border-2 border-[#ffd60a] text-[#ffd60a] font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
                             {texts.hero.ctaAcademy} <GraduationCap />
                         </motion.button>
                     </motion.div>
                 </motion.div>
                 <div className="flex items-center justify-center">
-                    {/* Placeholder for animated SVG or 3D visual */}
                     <AnimatedVisual />
                 </div>
             </div>
@@ -363,19 +337,11 @@ const AnimatedVisual = () => {
                         <stop offset="100%" style={{stopColor: '#ffd60a', stopOpacity: 1}} />
                     </linearGradient>
                 </defs>
-                <motion.circle 
-                    cx="200" cy="200" r="180" 
-                    stroke="url(#grad1)" strokeWidth="4" fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1, transition: { duration: 2, ease: "easeInOut" } }}
-                />
+                <motion.circle cx="200" cy="200" r="180" stroke="url(#grad1)" strokeWidth="4" fill="none" initial={{ pathLength: 0, opacity: 0 }} animate={{ pathLength: 1, opacity: 1, transition: { duration: 2, ease: "easeInOut" } }} />
                 <motion.g animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 20, ease: 'linear' }}>
-                    <motion.circle cx="200" cy="60" r="15" fill="#6610f2" 
-                        animate={{ y: [60, 70, 60], scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }} />
-                    <motion.rect x="320" y="190" width="30" height="30" rx="5" fill="#ffd60a"
-                        animate={{ x: [320, 310, 320], scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }} />
-                    <motion.path d="M 80 300 L 100 320 L 80 340 Z" fill="#6610f2"
-                        animate={{ x: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }} />
+                    <motion.circle cx="200" cy="60" r="15" fill="#6610f2" animate={{ y: [60, 70, 60], scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }} />
+                    <motion.rect x="320" y="190" width="30" height="30" rx="5" fill="#ffd60a" animate={{ x: [320, 310, 320], scale: [1, 1.1, 1] }} transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }} />
+                    <motion.path d="M 80 300 L 100 320 L 80 340 Z" fill="#6610f2" animate={{ x: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }} />
                 </motion.g>
                  <motion.g animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 30, ease: 'linear' }}>
                     <Code size={48} x="176" y="176" className="text-[#6610f2]/50" />
@@ -393,11 +359,7 @@ const AnimatedSection = ({ children, id }) => {
 
     return (
         <section id={id} ref={ref} className="container mx-auto px-4 py-20 md:py-28">
-            <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-            >
+            <motion.div initial={{ opacity: 0, y: 50 }} animate={isInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, ease: "easeOut" }}>
                 {children}
             </motion.div>
         </section>
@@ -412,51 +374,24 @@ const AboutSection = () => {
     return (
         <AnimatedSection id="about">
             <div ref={ref} className="grid lg:grid-cols-2 gap-16 items-center">
-                {/* Visual Element */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                    className="flex justify-center"
-                >
+                <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }} className="flex justify-center">
                      <div className="w-full max-w-sm aspect-square relative">
                         <svg viewBox="0 0 400 400" className="w-full h-full">
                             <motion.g animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 40, ease: 'linear' }}>
-                                <motion.path
-                                    d="M 200, 50 a 150,150 0 1,1 0,300 a 150,150 0 1,1 0,-300"
-                                    fill="none"
-                                    stroke="rgba(102, 16, 242, 0.4)"
-                                    strokeWidth="2"
-                                    strokeDasharray="5 10"
-                                />
-                                <motion.path
-                                    d="M 200, 100 a 100,100 0 1,1 0,200 a 100,100 0 1,1 0,-200"
-                                    fill="none"
-                                    stroke="rgba(255, 214, 10, 0.4)"
-                                    strokeWidth="2"
-                                    strokeDasharray="1 8"
-                                />
+                                <motion.path d="M 200, 50 a 150,150 0 1,1 0,300 a 150,150 0 1,1 0,-300" fill="none" stroke="rgba(102, 16, 242, 0.4)" strokeWidth="2" strokeDasharray="5 10" />
+                                <motion.path d="M 200, 100 a 100,100 0 1,1 0,200 a 100,100 0 1,1 0,-200" fill="none" stroke="rgba(255, 214, 10, 0.4)" strokeWidth="2" strokeDasharray="1 8" />
                             </motion.g>
                             <Building size={64} x="168" y="168" className="text-white/70" />
                         </svg>
                      </div>
                 </motion.div>
 
-                {/* Text Content */}
                 <div className="space-y-8">
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-                    >
+                    <motion.div initial={{ opacity: 0, x: 50 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}>
                         <h3 className="text-3xl font-bold mb-3 text-[#ffd60a]">{texts.about.story.title}</h3>
                         <p className="text-gray-300 leading-relaxed">{texts.about.story.content}</p>
                     </motion.div>
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={isInView ? { opacity: 1, x: 0 } : {}}
-                        transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}
-                    >
+                    <motion.div initial={{ opacity: 0, x: 50 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7, delay: 0.6, ease: "easeOut" }}>
                         <h3 className="text-3xl font-bold mb-3 text-[#ffd60a]">{texts.about.mission.title}</h3>
                         <p className="text-gray-300 leading-relaxed">{texts.about.mission.content}</p>
                     </motion.div>
@@ -471,15 +406,7 @@ const SolutionsSection = () => {
 
     const cardVariants = {
         hidden: { opacity: 0, y: 30 },
-        visible: i => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: i * 0.2,
-                duration: 0.6,
-                ease: 'easeOut'
-            }
-        })
+        visible: i => ({ opacity: 1, y: 0, transition: { delay: i * 0.2, duration: 0.6, ease: 'easeOut' } })
     };
 
     return (
@@ -487,15 +414,7 @@ const SolutionsSection = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">{texts.solutions.title}</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {texts.solutions.cards.map((card, i) => (
-                    <motion.div
-                        key={i}
-                        custom={i}
-                        initial="hidden"
-                        animate="visible"
-                        variants={cardVariants}
-                        whileHover={{ y: -10, boxShadow: '0 20px 25px -5px rgba(102, 16, 242, 0.2), 0 10px 10px -5px rgba(102, 16, 242, 0.1)' }}
-                        className="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 transition-all duration-300 cursor-pointer"
-                    >
+                    <motion.div key={i} custom={i} initial="hidden" animate="visible" variants={cardVariants} whileHover={{ y: -10, boxShadow: '0 20px 25px -5px rgba(102, 16, 242, 0.2), 0 10px 10px -5px rgba(102, 16, 242, 0.1)' }} className="bg-gray-900/50 p-8 rounded-2xl border border-gray-800 transition-all duration-300 cursor-pointer">
                         <div className="mb-4">
                             <Icon name={card.icon} size={40} className="text-[#6610f2]" />
                         </div>
@@ -518,39 +437,21 @@ const AcademySection = () => {
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-center mb-8 border-b border-gray-800">
                     {texts.academy.tabs.map((tab, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setActiveTab(index)}
-                            className={`px-4 py-3 text-sm md:text-base font-medium transition-colors duration-300 relative ${activeTab === index ? 'text-[#ffd60a]' : 'text-gray-400 hover:text-white'}`}
-                        >
+                        <button key={index} onClick={() => setActiveTab(index)} className={`px-4 py-3 text-sm md:text-base font-medium transition-colors duration-300 relative ${activeTab === index ? 'text-[#ffd60a]' : 'text-gray-400 hover:text-white'}`}>
                             {tab.name}
                             {activeTab === index && (
-                                <motion.div
-                                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ffd60a]"
-                                    layoutId="underline"
-                                />
+                                <motion.div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ffd60a]" layoutId="underline" />
                             )}
                         </button>
                     ))}
                 </div>
                 <AnimatePresence mode="wait">
-                    <motion.div
-                        key={activeTab}
-                        initial={{ y: 10, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        exit={{ y: -10, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="text-center bg-gray-900/30 p-8 md:p-12 rounded-2xl"
-                    >
+                    <motion.div key={activeTab} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} transition={{ duration: 0.3 }} className="text-center bg-gray-900/30 p-8 md:p-12 rounded-2xl">
                         <div className="flex justify-center mb-4">
                             <Icon name={texts.academy.tabs[activeTab].icon} size={48} className="text-[#ffd60a]" />
                         </div>
                         <p className="text-lg text-gray-300 mb-6 max-w-2xl mx-auto">{texts.academy.tabs[activeTab].description}</p>
-                        <motion.button 
-                            whileHover={{ scale: 1.05 }} 
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-[#ffd60a] text-black font-bold py-3 px-8 rounded-full transition-all duration-300"
-                        >
+                        <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-[#ffd60a] text-black font-bold py-3 px-8 rounded-full transition-all duration-300">
                             {texts.academy.tabs[activeTab].cta}
                         </motion.button>
                     </motion.div>
@@ -570,7 +471,6 @@ const ContactSection = () => {
                 <p className="text-lg text-gray-400 mt-4 max-w-2xl mx-auto">{texts.contact.description}</p>
             </div>
             <div className="grid lg:grid-cols-2 gap-12">
-                {/* Contact Form */}
                 <form className="space-y-6">
                     <div className="relative">
                         <input type="text" id="name" className="peer block w-full bg-transparent border-b-2 border-gray-600 focus:border-[#6610f2] pt-4 pb-2 text-lg text-white outline-none" placeholder=" " />
@@ -589,21 +489,14 @@ const ContactSection = () => {
                         <label htmlFor="message" className="absolute top-4 start-0 text-gray-400 text-lg transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-lg peer-focus:-top-3.5 peer-focus:text-[#6610f2] peer-focus:text-sm">{texts.contact.form.message}</label>
                     </div>
                     <div>
-                        {/* A styled file input would require more complex JS, this is a simplified version */}
                         <label htmlFor="file-upload" className="text-gray-400">{texts.contact.form.upload}</label>
                         <input type="file" id="file-upload" className="block w-full text-sm text-gray-400 file:me-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#6610f2]/20 file:text-[#6610f2] hover:file:bg-[#6610f2]/30 mt-2"/>
                     </div>
-                    <motion.button 
-                        type="submit"
-                        whileHover={{ scale: 1.05, boxShadow: '0px 0px 15px rgba(102, 16, 242, 0.5)' }} 
-                        whileTap={{ scale: 0.95 }}
-                        className="w-full bg-[#6610f2] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2"
-                    >
+                    <motion.button type="submit" whileHover={{ scale: 1.05, boxShadow: '0px 0px 15px rgba(102, 16, 242, 0.5)' }} whileTap={{ scale: 0.95 }} className="w-full bg-[#6610f2] text-white font-bold py-3 px-8 rounded-full transition-all duration-300 flex items-center justify-center gap-2">
                         {texts.contact.form.send} <Send size={18} />
                     </motion.button>
                 </form>
 
-                {/* Map and Info */}
                 <div className="flex flex-col justify-between">
                     <a href="https://maps.app.goo.gl/JoUWmFCT91PcqNnG6" target="_blank" rel="noopener noreferrer" className="block w-full h-64 md:h-80 bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden relative group">
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
@@ -663,7 +556,7 @@ const Footer = () => {
 const WhatsAppButton = () => {
     return (
         <motion.a 
-            href="https://wa.me/9647821717773" // Replace with actual WhatsApp number
+            href="https://wa.me/9647821717773"
             target="_blank" 
             rel="noopener noreferrer" 
             className="fixed bottom-6 end-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-50"
