@@ -498,21 +498,7 @@ const ContactSection = () => {
                 </form>
 
                 <div className="flex flex-col justify-between">
-                    <a href="https://maps.app.goo.gl/JoUWmFCT91PcqNnG6" target="_blank" rel="noopener noreferrer" className="block w-full h-64 md:h-80 bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden relative group">
-                        <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
-                            <MapPin size={48} className="text-[#6610f2]/50" />
-                        </div>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                            <div className="w-4 h-4 bg-[#ffd60a] rounded-full"></div>
-                            <div className="absolute inset-0 bg-[#ffd60a] rounded-full animate-ping"></div>
-                        </div>
-                        <p className="absolute bottom-4 start-4 text-white font-bold">{texts.contact.info.address}</p>
-                        <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <p className="text-white text-lg font-semibold flex items-center gap-2">
-                                {texts.contact.info.mapLinkText} <ArrowUpRight />
-                            </p>
-                        </div>
-                    </a>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54229.86686465698!2d47.15235465!3d31.84223585!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fe7eb23f8f9f7db%3A0xab6a556afbaa1ebd!2sAmarah%2C%20Maysan%20Governorate!5e0!3m2!1sen!2siq!4v1752819044029!5m2!1sen!2siq" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     <div className="mt-8 space-y-4 text-lg">
                         <a href={`mailto:${texts.contact.info.email}`} className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors">
                             <Mail size={24} className="text-[#ffd60a]" />
