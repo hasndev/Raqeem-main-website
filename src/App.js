@@ -498,7 +498,7 @@ const ContactSection = () => {
                 </form>
 
                 <div className="flex flex-col justify-between">
-                    <a href="https://maps.app.goo.gl/JoUWmFCT91PcqNnG6" target="_blank" rel="noopener noreferrer" className="block w-full h-64 md:h-80 bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden relative group">
+                    <a href="https://maps.app.goo.gl/" target="_blank" rel="noopener noreferrer" className="block w-full h-64 md:h-80 bg-gray-900 rounded-2xl border border-gray-800 overflow-hidden relative group">
                         <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
                             <MapPin size={48} className="text-[#6610f2]/50" />
                         </div>
